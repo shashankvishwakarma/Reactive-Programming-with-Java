@@ -1,4 +1,6 @@
-package com.example;
+package com.example.stream;
+
+import com.example.User;
 
 public class StreamExercise {
 
