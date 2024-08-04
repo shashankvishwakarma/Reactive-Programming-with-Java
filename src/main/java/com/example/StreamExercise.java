@@ -30,11 +30,24 @@ public class StreamExercise {
         System.out.println(value);
 
         System.out.println("Print first names of all users in userStream");
-        // TODO: Write code here
+        StreamSources.userStream()
+                .map(User::getFirstName)
+                .forEach(System.out::println);
 
         System.out.println("Print first names in userStream for users that have IDs from number stream");
-        // TODO: Write code here
+        System.out.println("------------ Method 1 ------------");
+        StreamSources.intNumbersStream()
+                .flatMap(id -> StreamSources.userStream()
+                        .filter(user -> user.getId() == id))
+                .map(User::getFirstName)
+                .forEach(System.out::println);
 
+        System.out.println("------------ Method 2 ------------");
+        StreamSources.userStream()
+                .filter(user -> StreamSources.intNumbersStream()
+                        .anyMatch(id -> user.getId() == id))
+                .map(User::getFirstName)
+                .forEach(System.out::println);
     }
 
 }
